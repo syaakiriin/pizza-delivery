@@ -20,6 +20,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate (final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layoutlogin);
+        View view = getWindow().getDecorView().getRootView();
+
+
+
+
 
         //create a instance of SQLite Database
         databaseLoginRegister = new DatabaseLoginRegister(this);
@@ -27,6 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         //Get the Refference Of Buttons
         bHome = (Button)findViewById(R.id.bHome);
         bLogin = (Button)findViewById(R.id.bLogin);
+        signin(view);
+
+
+
 
 
         bHome.setOnClickListener(new View.OnClickListener() {
@@ -43,31 +52,31 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void signin(View view){
-        final Dialog dialog = new Dialog(LoginActivity.this);
-        dialog.setContentView(R.layout.layoutlogin);
-        dialog.setTitle("Login");
 
         //get the Refferences of views
-        final EditText editUsername = (EditText)dialog.findViewById(R.id.editUsername);
-        final EditText editPassword = (EditText)dialog.findViewById(R.id.editPassword);
+        final EditText editUsername = (EditText)findViewById(R.id.editUsername);
+        final EditText editPassword = (EditText)findViewById(R.id.editPassword);
 
 
 
         //Set on ClickListener
-        bLogin.setOnClickListener(new View.OnClickListener() {
+        bLogin.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 String username = editUsername.getText().toString();
                 String password = editPassword.getText().toString();
 
+
+
+
                 //fetch the password from database respective username
                 String storedpassword =databaseLoginRegister.getSingleEntry(username);
-
                 //check if the stored password matches with password entered by user
                 if(password.equals(storedpassword)){
                     Toast.makeText(LoginActivity.this,"Congrats Login Succesfull",
                             Toast.LENGTH_LONG).show();
-                    dialog.dismiss();
+
                 }
                 else{
                     Toast.makeText(LoginActivity.this,"USER NAME OR PASSWORD does not match",
@@ -76,7 +85,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        dialog.show();
+
+
     }
 
     @Override
