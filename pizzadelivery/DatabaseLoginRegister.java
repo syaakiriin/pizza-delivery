@@ -54,7 +54,6 @@ public class DatabaseLoginRegister extends SQLiteOpenHelper{
 
     //add user
     public void addUser(User user){
-
     }
 
     public void updateUser(User user){
@@ -82,13 +81,13 @@ public class DatabaseLoginRegister extends SQLiteOpenHelper{
 
 
     public String getSingleEntry(String username){
-        Cursor cursor=db.query("Login",null,"USERNAME =?", new String[]{username},null,null,null);
+        Cursor cursor=db.query("User", null,"editUsername=?", new String[]{username},null,null,null);
         if(cursor.getCount()<1){
             cursor.close();
             return "Not EXIST";
         }
         cursor.moveToFirst();
-        String password = cursor.getString(cursor.getColumnIndex("PASSWORD"));
+        String password = cursor.getString(cursor.getColumnIndex("editPassword"));
         cursor.close();
         return password;
     }
